@@ -1,0 +1,3 @@
+[submodule "Sarachan.UiHosting"]
+	path = Sarachan.UiHosting
+	url = https://github.com/KurokiYukari/Sarachan.UiHosting.git
