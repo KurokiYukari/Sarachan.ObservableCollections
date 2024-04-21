@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarachan.ObservableCollections", "Src\Sarachan.ObservableCollections\Sarachan.ObservableCollections.csproj", "{98D104A9-6B15-4C0D-ADC3-461212D3AD70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarachan.ObservableCollections.Tests", "Tests\Sarachan.ObservableCollections.Tests\Sarachan.ObservableCollections.Tests.csproj", "{3A88A265-C38E-4A5C-BBB8-30C0C4088D52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarachan.ObservableCollections.Tests", "Src\Sarachan.ObservableCollections.Tests\Sarachan.ObservableCollections.Tests.csproj", "{B813D142-B1C7-4A33-9828-2D504C584034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{98D104A9-6B15-4C0D-ADC3-461212D3AD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D104A9-6B15-4C0D-ADC3-461212D3AD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D104A9-6B15-4C0D-ADC3-461212D3AD70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A88A265-C38E-4A5C-BBB8-30C0C4088D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A88A265-C38E-4A5C-BBB8-30C0C4088D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A88A265-C38E-4A5C-BBB8-30C0C4088D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A88A265-C38E-4A5C-BBB8-30C0C4088D52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B813D142-B1C7-4A33-9828-2D504C584034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B813D142-B1C7-4A33-9828-2D504C584034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B813D142-B1C7-4A33-9828-2D504C584034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B813D142-B1C7-4A33-9828-2D504C584034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
