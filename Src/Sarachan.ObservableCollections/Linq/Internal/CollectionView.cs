@@ -83,6 +83,7 @@ namespace Sarachan.ObservableCollections.Linq.Internal
         public IReadOnlyObservableCollection<T> Collection => _eventSource.Collection;
 
         private readonly ObservableList<TView> _storage = new();
+        private event NotifyCollectionChangedEventHandler<TView>? _storageCollectionChanged;
 
         public int Count
         {
@@ -113,17 +114,17 @@ namespace Sarachan.ObservableCollections.Linq.Internal
                     return;
                 }
 
-                if (_eventSource.EventUnitCount == 0)
+                if (_storageCollectionChanged == null)
                 {
                     _eventSource.CollectionChanged += OnCollectionChangedEmitted;
                     Refresh();
                 }
-                _eventSource.CollectionChanged += value;
+                _storageCollectionChanged += value;
             }
             remove
             {
-                _eventSource.CollectionChanged -= value;
-                if (_eventSource.EventUnitCount == 1)
+                _storageCollectionChanged -= value;
+                if (_storageCollectionChanged == null)
                 {
                     _eventSource.CollectionChanged -= OnCollectionChangedEmitted;
                     Debug.Assert(_eventSource.EventUnitCount == 0);
@@ -135,6 +136,11 @@ namespace Sarachan.ObservableCollections.Linq.Internal
             CollectionView.IEventEmitter<T, TView> emitter)
         {
             _eventSource = new EventSource(collection, emitter);
+
+            _storage.CollectionChanged += (sender, e) =>
+            {
+                _storageCollectionChanged?.Invoke(sender, e);
+            };
         }
 
         public void Refresh()

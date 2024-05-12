@@ -6,7 +6,8 @@ namespace Sarachan.ObservableCollections
 {
     public class ObservableOrderedDictionary<TKey, TValue> : 
         ObservableListBase<KeyValuePair<TKey, TValue>, OrderedDictionary<TKey, TValue>>,
-        IDictionary<TKey, TValue>
+        IDictionary<TKey, TValue>,
+        IReadOnlyDictionary<TKey, TValue>
         where TKey : notnull
     {
         public ObservableOrderedDictionary(IEqualityComparer<TKey> comparer) : base(new OrderedDictionary<TKey, TValue>(comparer))
@@ -37,6 +38,9 @@ namespace Sarachan.ObservableCollections
         public ICollection<TKey> Keys => Storage.Keys;
 
         public ICollection<TValue> Values => Storage.Values;
+
+        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
+        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
 
         public virtual void Add(TKey key, TValue value)
         {

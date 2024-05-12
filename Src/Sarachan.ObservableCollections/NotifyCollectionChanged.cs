@@ -109,7 +109,7 @@ namespace Sarachan.ObservableCollections
 
         public static NotifyCollectionChangedEventArgs<T> Add(in T newItem, int newStartingIndex)
         {
-            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Add, newItems: new(newItem), newStartingIndex: newStartingIndex);
+            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Add, newItems: new(in newItem), newStartingIndex: newStartingIndex);
         }
 
         public static NotifyCollectionChangedEventArgs<T> Add(ReadOnlySpan<T> newItems, int newStartingIndex)
@@ -119,7 +119,7 @@ namespace Sarachan.ObservableCollections
 
         public static NotifyCollectionChangedEventArgs<T> Remove(in T oldItem, int oldStartingIndex)
         {
-            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Remove, oldItems: new(oldItem), oldStartingIndex: oldStartingIndex);
+            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Remove, oldItems: new(in oldItem), oldStartingIndex: oldStartingIndex);
         }
 
         public static NotifyCollectionChangedEventArgs<T> Remove(ReadOnlySpan<T> oldItems, int oldStartingIndex)
@@ -129,12 +129,12 @@ namespace Sarachan.ObservableCollections
 
         public static NotifyCollectionChangedEventArgs<T> Replace(in T newItem, in T oldItem, int startingIndex)
         {
-            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Replace, new(newItem), new(oldItem), startingIndex, startingIndex);
+            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Replace, new(in newItem), new(in oldItem), startingIndex, startingIndex);
         }
 
         public static NotifyCollectionChangedEventArgs<T> Move(in T changedItem, int newStartingIndex, int oldStartingIndex)
         {
-            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Move, new(changedItem), default, newStartingIndex, oldStartingIndex);
+            return new NotifyCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Move, new(in changedItem), default, newStartingIndex, oldStartingIndex);
         }
 
         public static NotifyCollectionChangedEventArgs<T> Reset(ReadOnlySpan<T> newItems, ReadOnlySpan<T> oldItems)
