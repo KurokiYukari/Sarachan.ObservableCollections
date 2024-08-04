@@ -96,6 +96,8 @@ namespace Sarachan.ObservableCollections.Linq.Internal
 
         public int Version { get; private set; }
 
+        private readonly NotifyCollectionChangedEventHandler<TView> _onCollectionChangedEmitted;
+
         public TView this[int index]
         {
             get
@@ -116,7 +118,7 @@ namespace Sarachan.ObservableCollections.Linq.Internal
 
                 if (_storageCollectionChanged == null)
                 {
-                    _eventSource.CollectionChanged += OnCollectionChangedEmitted;
+                    _eventSource.CollectionChanged += _onCollectionChangedEmitted;
                     Refresh();
                 }
                 _storageCollectionChanged += value;
@@ -126,7 +128,7 @@ namespace Sarachan.ObservableCollections.Linq.Internal
                 _storageCollectionChanged -= value;
                 if (_storageCollectionChanged == null)
                 {
-                    _eventSource.CollectionChanged -= OnCollectionChangedEmitted;
+                    _eventSource.CollectionChanged -= _onCollectionChangedEmitted;
                     Debug.Assert(_eventSource.EventUnitCount == 0);
                 }
             }
@@ -136,6 +138,7 @@ namespace Sarachan.ObservableCollections.Linq.Internal
             CollectionView.IEventEmitter<T, TView> emitter)
         {
             _eventSource = new EventSource(collection, emitter);
+            _onCollectionChangedEmitted = OnCollectionChangedEmitted;
 
             _storage.CollectionChanged += (sender, e) =>
             {
@@ -147,7 +150,7 @@ namespace Sarachan.ObservableCollections.Linq.Internal
         {
             using var spanOwner = SpanOwner.Allocate(Collection);
             var e = NotifyCollectionChangedEventArgs<T>.Reset(spanOwner.Span, default);
-            _eventSource.Emitter.Emit(e, OnCollectionChangedEmitted);
+            _eventSource.Emitter.Emit(e, _onCollectionChangedEmitted);
         }
 
         private void OnCollectionChangedEmitted(object sender, NotifyCollectionChangedEventArgs<TView> e)

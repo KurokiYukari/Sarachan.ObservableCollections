@@ -7,10 +7,13 @@ namespace Sarachan.ObservableCollections.Linq.Internal
         private readonly CollectionView.IEventEmitter<T, TRelay> _sourceEmitter;
         private readonly CollectionView.IEventEmitter<TRelay, TView> _combinedEmitter;
 
+        private readonly NotifyCollectionChangedEventHandler<TRelay> _cachedHandler;
+
         public CombinedCollectionViewEventEmitter(CollectionView.IEventEmitter<T, TRelay> sourceEmitter, CollectionView.IEventEmitter<TRelay, TView> combinedEmitter)
         {
             _sourceEmitter = sourceEmitter;
             _combinedEmitter = combinedEmitter;
+            _cachedHandler = OnSourceEmitted;
         }
 
         private NotifyCollectionChangedEventHandler<TView>? _handler;
@@ -26,9 +29,14 @@ namespace Sarachan.ObservableCollections.Linq.Internal
             Guard.IsNull(_handler);
             _handler = handler;
 
-            _sourceEmitter.Emit(e, OnSourceEmitted);
-
-            _handler = null;
+            try
+            {
+                _sourceEmitter.Emit(e, _cachedHandler);
+            }
+            finally
+            {
+                _handler = null;
+            }
         }
 
         private void OnSourceEmitted(object sender, NotifyCollectionChangedEventArgs<TRelay> e)
